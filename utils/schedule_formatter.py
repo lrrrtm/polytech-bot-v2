@@ -9,10 +9,16 @@ from utils.schedule_processor import DayScheduleElement, ScheduleElement, Schedu
 
 import locale
 
-locale.setlocale(
-    category=locale.LC_ALL,
-    locale="Russian"
-)
+try:
+    locale.setlocale(
+        category=locale.LC_ALL,
+        locale="Russian"
+    )
+except locale.Error:
+    locale.setlocale(
+        category=locale.LC_ALL,
+        locale="ru_RU.UTF-8"
+    )
 
 
 class ScheduleFormatter:
