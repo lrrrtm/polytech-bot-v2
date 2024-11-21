@@ -13,11 +13,9 @@ app = Flask(__name__)
 @app.route('/github-webhook/', methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        mk = telebot.types.InlineKeyboardMarkup(
-            keyboard=[
-                telebot.types.InlineKeyboardButton(text="Перезапуск", callback_data="git_pull"),
-            ]
-        )
+        mk = telebot.types.InlineKeyboardMarkup()
+        button = telebot.types.InlineKeyboardButton(text="Перезапуск", callback_data="git_pull")
+        mk.add(button)
         text = "Получено обновление с GitHub. Чтобы перезапустить, нажми на кнопку"
 
         try:
