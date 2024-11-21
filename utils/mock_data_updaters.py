@@ -2,6 +2,7 @@ import asyncio
 import json
 import os
 from datetime import datetime
+import platform
 
 from bs4 import BeautifulSoup
 from requests import get
@@ -58,7 +59,12 @@ def fetch_teachers_data():
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--window-size=1920x1080")
 
-    driver = webdriver.Chrome(options=options)
+    if platform.system() == "Windows":
+        driver = webdriver.Chrome(options=options)
+    else:
+        from selenium.webdriver.chrome.service import Service
+        service = Service("/usr/lib/chromium-browser/chromedriver")
+        driver = webdriver.Chrome(service=service, options=options)
 
     data = []
 

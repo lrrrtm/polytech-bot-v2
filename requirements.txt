@@ -7,3 +7,4 @@ emoji~=2.14.0
 aiogram~=3.15.0
 APScheduler~=3.10.4
 selenium~=4.26.1
+pyTelegramBotAPI~=4.24.0
