@@ -1,9 +1,13 @@
+import os
+import subprocess
 from datetime import datetime
 
-from aiogram import Router
+from aiogram import Router, types
 from aiogram.filters import Command
+from aiogram.filters.callback_data import CallbackData
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
+from pyexpat.errors import messages
 
 from db_orm.crud import get_user_by_attrs, create_user, update_user_data
 from db_orm.models import User
@@ -90,3 +94,18 @@ async def find_and_insert_user_group(message: Message, state: FSMContext):
         await message.answer(
             text=msgs_lexicon['group_updater']['group_not_found'].replace('input_user_group', input_user_group)
         )
+
+
+@router.callback_query(lambda c: c.data == 'git_pull')
+async def process_callback_button(callback: types.CallbackQuery, callback_data: types.CallbackQuery, state: FSMContext):
+    await callback.answer()
+    await callback.message.delete()
+    await callback.message.answer(
+        text="Выполняется перезапуск..."
+    )
+
+    repo_path = '/root/repos/polytech_bot_v2'
+    restart_command = 'sudo systemctl restart polytech_bot'
+    os.chdir(repo_path)
+    subprocess.run(['git', 'pull'], check=True)
+    subprocess.run(restart_command.split(), check=True)
