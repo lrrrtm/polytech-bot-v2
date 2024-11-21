@@ -1,10 +1,11 @@
 from flask import Flask, request
+from dotenv import load_dotenv
 import os
-import subprocess
 
 import telebot
 
-bot = telebot.TeleBot(os.environ['BOT_API_KEY'])
+load_dotenv()
+bot = telebot.TeleBot(os.getenv('BOT_API_KEY'))
 
 app = Flask(__name__)
 
