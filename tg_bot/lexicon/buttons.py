@@ -2,7 +2,7 @@ from emoji import emojize
 
 lexicon = {
     'main_menu': {
-        'main_menu': f"{emojize(':card_file_box:')} Главное меню",
+        'main_menu': f"{emojize(':card_file_box:')} Главное менюююююю",
         'schedule': f"{emojize(':calendar:')} Расписание",
         'buildings': f"{emojize(':school:')} Корпуса",
         'find_teacher': f"{emojize(':teacher:')} Где препод",
