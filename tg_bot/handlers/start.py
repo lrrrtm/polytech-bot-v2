@@ -97,7 +97,7 @@ async def find_and_insert_user_group(message: Message, state: FSMContext):
 
 
 @router.callback_query(lambda c: c.data == 'git_pull')
-async def process_callback_button(callback: types.CallbackQuery, callback_data: types.CallbackQuery, state: FSMContext):
+async def process_callback_button(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
     await callback.message.delete()
     await callback.message.answer(
