@@ -63,9 +63,9 @@ class ScheduleFormatter:
 
         # Аудитория
         building = get_building_by_attrs(building_nm=lesson.auditory.name.split(",")[0])
-        building_hyper_link = f"<a href=\"https://maps.yandex.ru/{building.building_map_id}\">{lesson.auditory.name.split(",")[0]}</a>"
+        building_hyper_link = f"<a href=\"https://maps.yandex.ru/{building.building_map_id}\">{lesson.auditory.name.split(',')[0]}</a>"
 
-        auditory_schedule_hyper_link = f"<a href=\"{lesson.auditory.url}\">{lesson.auditory.name.split(",")[1].strip()}</a>"
+        auditory_schedule_hyper_link = f"<a href=\"{lesson.auditory.url}\">{lesson.auditory.name.split(',')[1].strip()}</a>"
 
         auditory = f"{emoji.emojize(':round_pushpin:')} {building_hyper_link} {auditory_schedule_hyper_link}" if lesson.auditory.name \
             else f"{emoji.emojize(':round_pushpin:')} Место проведения не указано"
