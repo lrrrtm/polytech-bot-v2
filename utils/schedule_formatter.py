@@ -41,7 +41,7 @@ class ScheduleFormatter:
         for lesson in day_schedule.lessons:
             formatted_lessons.append(ScheduleFormatter.format_lesson(lesson))
 
-        return f"{day_title}\n{'\n\n'.join(formatted_lessons)}"
+        return f"{day_title}\n" + "\n\n".join(formatted_lessons)
 
     @staticmethod
     def format_lesson(lesson: ScheduleElement) -> str:
