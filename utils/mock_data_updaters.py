@@ -10,12 +10,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
+from utils.groups_jsoner import mock_groups_path, mock_teachers_path
+
 
 async def create_mock_folder_and_data():
     """Создаёт папку с mock данными"""
 
-    if not os.path.exists(f"../mock_data"):
-        os.mkdir(f"../mock_data")
+    if not os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "../mock_data"))):
+        os.mkdir(os.path.abspath(os.path.join(os.path.dirname(__file__), "../mock_data")))
         await update_groups_data()
         await update_teachers_data()
 
@@ -95,7 +97,7 @@ async def update_groups_data():
             'updated_dt': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'mock_data': groups
         }
-        with open("../mock_data/groups.json", "w", encoding="utf-8") as f:
+        with open(mock_groups_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
 
@@ -109,7 +111,7 @@ async def update_teachers_data():
             'updated_dt': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'mock_data': teachers
         }
-        with open("../mock_data/teachers.json", "w", encoding="utf-8") as f:
+        with open(mock_teachers_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
 
