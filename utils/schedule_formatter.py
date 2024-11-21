@@ -29,7 +29,7 @@ class ScheduleFormatter:
         """
 
         # Заголовок с датой
-        day_title = (f"{emoji.emojize(":calendar:")} Расписание на "
+        day_title = (f"{emoji.emojize(':calendar:')} Расписание на "
                      f"{day_schedule.timing.start_date.strftime('%d.%m.%y')} "
                      f"({day_schedule.timing.start_date.strftime('%A')})"
                      f"\n{title}\n")
@@ -58,8 +58,8 @@ class ScheduleFormatter:
         name_and_type = f"{lesson.name} ({lesson.type})"
 
         # Преподаватель
-        teacher = f"{emoji.emojize(":teacher:")} <a href=\"{lesson.teacher.url}\">{lesson.teacher.name}</a>" if lesson.teacher.name \
-            else f"{emoji.emojize(":teacher:")} Преподаватель не указан"
+        teacher = f"{emoji.emojize(':teacher:')} <a href=\"{lesson.teacher.url}\">{lesson.teacher.name}</a>" if lesson.teacher.name \
+            else f"{emoji.emojize(':teacher:')} Преподаватель не указан"
 
         # Аудитория
         building = get_building_by_attrs(building_nm=lesson.auditory.name.split(",")[0])
@@ -67,17 +67,17 @@ class ScheduleFormatter:
 
         auditory_schedule_hyper_link = f"<a href=\"{lesson.auditory.url}\">{lesson.auditory.name.split(",")[1].strip()}</a>"
 
-        auditory = f"{emoji.emojize(":round_pushpin:")} {building_hyper_link} {auditory_schedule_hyper_link}" if lesson.auditory.name \
-            else f"{emoji.emojize(":round_pushpin:")} Место проведения не указано"
+        auditory = f"{emoji.emojize(':round_pushpin:')} {building_hyper_link} {auditory_schedule_hyper_link}" if lesson.auditory.name \
+            else f"{emoji.emojize(':round_pushpin:')} Место проведения не указано"
 
         # Ссылки
         links = ""
         if lesson.links:
-            links_list = "\n".join([f"{emoji.emojize(":link:")} <a href=\"{link.url}\">{link.title}</a>"
+            links_list = "\n".join([f"{emoji.emojize(':link:')} <a href=\"{link.url}\">{link.title}</a>"
                                     for link in lesson.links])
             links = f"\n{links_list}"
 
-        return f"{emoji.emojize(":alarm_clock:")} {time_range} {name_and_type}\n{teacher}\n{auditory}{links}"
+        return f"{emoji.emojize(':alarm_clock:')} {time_range} {name_and_type}\n{teacher}\n{auditory}{links}"
 
 
 if __name__ == '__main__':
