@@ -22,17 +22,18 @@ def webhook():
 
         try:
             bot.send_message(
-                chat_id=os.environ['ADMIN_1_ID'],
+                chat_id=os.getenv('ADMIN_1_ID'),
                 text=text,
                 reply_markup=mk
             )
 
             bot.send_message(
-                chat_id=os.environ['ADMIN_2_ID'],
+                chat_id=os.getenv('ADMIN_2_ID'),
                 text=text,
                 reply_markup=mk
             )
         except Exception as e:
+            print(e)
             pass
 
         return 'Success', 200
