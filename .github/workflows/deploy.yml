@@ -10,22 +10,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Add SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Deploy to server
-      run: |
-        ssh -i ~/.ssh/id_ed25519 -p 3022 root@31.134.153.162 << 'EOF'
-        cd /root/repos/polytech_bot_v2
-        git pull origin master
-        source venv/bin/activate
-        pip3 install -r requirements.txt
-        systemctl restart polytech_bot
-        EOF
+      - name: Test SSH
+        run: ssh -i ~/.ssh/id_ed25519 -p 3022 root@31.134.153.162 echo "Connection successful"
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Deploy to server
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -p 3022 root@31.134.153.162 << 'EOF'
+          cd /root/repos/polytech_bot_v2
+          git pull origin master
+          source venv/bin/activate
+          pip3 install -r requirements.txt
+          systemctl restart polytech_bot
+          EOF
