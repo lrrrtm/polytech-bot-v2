@@ -21,15 +21,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Test SSH
-        run: ssh -i ~/.ssh/id_ed25519 -p 3022 root@31.134.153.162 echo "Connection successful"
-
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H -p 3022 31.134.153.162 >> ~/.ssh/known_hosts
+
+      - name: Test SSH
+        run: ssh -i ~/.ssh/id_ed25519 -p 3022 root@31.134.153.162 echo "Connection successful"
 
       - name: Deploy to server
         run: |
