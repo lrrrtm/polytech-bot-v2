@@ -2,7 +2,8 @@ from emoji import emojize
 
 lexicon = {
     'service': {
-        'command_not_allowed': f"{emojize(':information:')} Данная команда недоступна, отправь или нажми /start"
+        'command_not_allowed': f"{emojize(':information:')} Данная команда недоступна, отправь или нажми /start",
+        'reboot_ok': f"{emojize(':information:')} Система успешно перезагружена"
     },
 
     'registration': {
