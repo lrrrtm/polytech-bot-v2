@@ -69,7 +69,9 @@ class ScheduleFormatter:
 
         # Аудитория
         building = get_building_by_attrs(building_nm=lesson.auditory.name.split(",")[0])
-        building_hyper_link = f"<a href=\"https://maps.yandex.ru/{building.building_map_id}\">{lesson.auditory.name.split(',')[0]}</a>"
+        # todo: раскоментить, когда будет готова бд
+        # building_hyper_link = f"<a href=\"https://maps.yandex.ru/{building.building_map_id}\">{lesson.auditory.name.split(',')[0]}</a>"
+        building_hyper_link = lesson.auditory.name.split(',')[0]
 
         auditory_schedule_hyper_link = f"<a href=\"{lesson.auditory.url}\">{lesson.auditory.name.split(',')[1].strip()}</a>"
 
