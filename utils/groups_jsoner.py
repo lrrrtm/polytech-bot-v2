@@ -34,10 +34,23 @@ def find_group_by_name(group_name: str) -> list | None:
 
 
 def find_teacher_by_name(teacher_name: str) -> list | None:
-    with open(mock_teachers_path, 'r') as groups_file:
+    with open(mock_teachers_path, 'r', encoding='utf-8') as groups_file:
         teachers = json.load(groups_file)
 
-    result = list(filter(lambda teacher: teacher_name in teacher['name'], teachers['mock_data']))
+    partial_input = teacher_name.lower().split()
+    result = []
+
+    for teacher_data in teachers['mock_data']:
+        teacher_parts = teacher_data['name'].lower().split()  # Разделяем ФИО учителя
+
+        match = True
+        for part in partial_input:
+            if not any(part == teacher_parts[i] for i in range(len(teacher_parts))):
+                match = False
+                break
+
+        if match:
+            result.append(teacher_data)
 
     if not result:
         return None
@@ -45,9 +58,7 @@ def find_teacher_by_name(teacher_name: str) -> list | None:
     return result
 
 
+
 if __name__ == '__main__':
-    data = find_group_by_id(
-        faculty=125,
-        group_num=40518
-    )
-    print(data)
+    res = find_teacher_by_name("Александр Гончаров")
+    print(res)

@@ -12,7 +12,7 @@ from pyexpat.errors import messages
 from db_orm.crud import get_user_by_attrs, create_user, update_user_data
 from db_orm.models import User
 from tg_bot.handlers.menu import cmd_menu
-from tg_bot.keyboards.groups import get_groups_names_kb
+from tg_bot.keyboards.service import get_list_kb
 from tg_bot.states.register_user import InputUserStudyGroup
 from utils.groups_jsoner import find_group_by_name
 
@@ -80,7 +80,7 @@ async def find_and_insert_user_group(message: Message, state: FSMContext):
         elif len(founded_groups) < 15:
             await message.answer(
                 text=msgs_lexicon['group_updater']['many_groups'].replace('input_user_group', input_user_group),
-                reply_markup=get_groups_names_kb(founded_groups)
+                reply_markup=get_list_kb(founded_groups, 'name')
             )
             # todo: set_state
 
