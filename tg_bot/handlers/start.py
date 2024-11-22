@@ -94,18 +94,3 @@ async def find_and_insert_user_group(message: Message, state: FSMContext):
         await message.answer(
             text=msgs_lexicon['group_updater']['group_not_found'].replace('input_user_group', input_user_group)
         )
-
-
-@router.callback_query(lambda c: c.data == 'git_pull')
-async def process_callback_button(callback: CallbackQuery, state: FSMContext):
-    await callback.answer()
-    await callback.message.delete()
-    await callback.message.answer(
-        text="Выполняется перезапуск..."
-    )
-
-    repo_path = '/root/repos/polytech_bot_v2'
-    restart_command = 'sudo systemctl restart polytech_bot'
-    os.chdir(repo_path)
-    subprocess.run(['git', 'pull'], check=True)
-    subprocess.run(restart_command.split(), check=True)
